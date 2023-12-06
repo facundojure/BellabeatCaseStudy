@@ -1,0 +1,60 @@
+  --- Determinamos el numero de actividad de cada periodo en este caso para la zona horaria "PM"
+SELECT
+  DISTINCT CAST(ActivityHour AS TIME) AS activity_time,
+  ROUND(AVG(TotalIntensity) OVER (PARTITION BY EXTRACT(HOUR FROM ActivityHour)), 1) AS average_intensity
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.hourly_activity`
+WHERE
+  ActivityPeriod = "PM";
+
+  --- Determinamos el numero de actividad de cada periodo en este caso para la zona horaria "AM"
+ SELECT
+  DISTINCT CAST(ActivityHour AS TIME) AS activity_time,
+  ROUND(AVG(TotalIntensity) OVER (PARTITION BY EXTRACT(HOUR FROM ActivityHour)), 1) AS average_intensity
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.hourly_activity`
+WHERE
+  ActivityPeriod = "AM";
+
+----
+  SELECT
+  DISTINCT CAST(hourly_activity.ActivityHour AS TIME) AS activity_time,
+  AVG(hourly_activity.TotalIntensity) OVER (PARTITION BY EXTRACT(HOUR FROM hourly_activity.ActivityHour)) AS average_intensity,
+  AVG(minuteMETSNarrow.METs/10.0) OVER (PARTITION BY EXTRACT(HOUR FROM hourly_activity.ActivityHour), hourly_activity.Id) AS average_METs
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.hourly_activity` AS hourly_activity
+
+JOIN
+  `case-study-coursera-406619.FitBit_Tracker_Data.minuteMETSNarrow` AS minuteMETSNarrow
+ON
+  hourly_activity.Id = minuteMETSNarrow.Id
+  AND EXTRACT(HOUR FROM TIMESTAMP_TRUNC(minuteMETSNarrow.ActivityMinute, HOUR)) = EXTRACT(HOUR FROM hourly_activity.ActivityHour)
+
+WHERE
+  hourly_activity.ActivityPeriod = "PM";
+  
+  --- Determinamos el numero de actividad de cada periodo en este caso para la zona horaria "AM"
+
+  SELECT
+  DISTINCT CAST(hourly_activity.ActivityHour AS TIME) AS activity_time,
+  AVG(hourly_activity.TotalIntensity) OVER (PARTITION BY EXTRACT(HOUR FROM hourly_activity.ActivityHour)) AS average_intensity,
+  AVG(minuteMETSNarrow.METs/10.0) OVER (PARTITION BY EXTRACT(HOUR FROM hourly_activity.ActivityHour), hourly_activity.Id) AS average_METs
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.hourly_activity` AS hourly_activity
+
+JOIN
+  `case-study-coursera-406619.FitBit_Tracker_Data.minuteMETSNarrow` AS minuteMETSNarrow
+ON
+  hourly_activity.Id = minuteMETSNarrow.Id
+  AND EXTRACT(HOUR FROM TIMESTAMP_TRUNC(minuteMETSNarrow.ActivityMinute, HOUR)) = EXTRACT(HOUR FROM hourly_activity.ActivityHour)
+
+WHERE
+  hourly_activity.ActivityPeriod = "AM";
+
+
+
+
+
+
+
+
