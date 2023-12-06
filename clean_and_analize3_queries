@@ -1,0 +1,31 @@
+SELECT
+  'Sleep' AS tabla,
+  COUNT(DISTINCT Id) AS cantidad_personas
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.Minute_Sleep`
+
+UNION ALL
+
+SELECT
+  'dailyActivity' AS tabla,
+  COUNT(DISTINCT Id) AS cantidad_personas
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.dailyActivity`
+
+UNION ALL
+
+SELECT
+  'Heartrate' AS tabla,
+  COUNT(DISTINCT Id) AS cantidad_personas
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.heartrate_second`
+
+UNION ALL
+
+SELECT
+  'Weight' AS tabla,
+  COUNT(DISTINCT Id) AS cantidad_personas
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.weightLogInfo`;
+
+
