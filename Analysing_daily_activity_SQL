@@ -1,0 +1,85 @@
+--Calculando cantidad de usuarios y promedios diarios
+  
+   --1)Siguiendo actividad fisica
+
+SELECT
+  COUNT (DISTINCT Id) AS users_tracking_activity,
+  AVG(TotalSteps ) AS average_steps,
+  AVG(TotalDistance ) AS average_distance,
+  AVG(calories ) AS average_calories,
+FROM
+  FitBit_Tracker_Data.dailyActivity; 
+  
+  --2)Siguiendo ritmo cardiaco
+
+SELECT
+  COUNT(DISTINCT Id) AS users_tracking_hearRate,
+  AVG(Value) AS average_heartRate,
+  MIN(Value) AS minimum_heartRate,
+  MAX(Value) AS maximum_heartRate
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.heartrate_second`;
+  
+   --3)Tracking sleep
+
+SELECT
+  COUNT(DISTINCT Id) AS users_tracking_sleep,
+  AVG(TotalMinutesAsleep )/60 AS average_hours_asleep,
+  MIN(TotalMinutesAsleep )/60 AS minimum_hours_asleep,
+  MAX(TotalMinutesAsleep )/60 AS maximum_hours_asleep,
+  AVG(TotalTimeInBed)/60 AS average_hours_inBed
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.sleepDay`;
+ 
+ --4) Seguimiento peso
+
+SELECT
+  COUNT(DISTINCT Id) AS users_tracking_weight,
+  AVG(WeightKg) AS average_weight,
+  MIN(WeightKg) AS minimum_weight,
+  MAX(WeightKg) AS maximum_weight,
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.weightLogInfo`
+
+
+
+
+  -----
+
+SELECT
+  COUNT(DISTINCT Id) AS users_tracking_activity,
+  ROUND(AVG(TotalSteps), 1) AS average_steps,
+  ROUND(AVG(TotalDistance), 1) AS average_distance,
+  ROUND(AVG(calories), 1) AS average_calories
+FROM
+  FitBit_Tracker_Data.dailyActivity;
+
+--2) Siguiendo ritmo cardiaco
+SELECT
+  COUNT(DISTINCT Id) AS users_tracking_hearRate,
+  ROUND(AVG(Value), 1) AS average_heartRate,
+  ROUND(MIN(Value), 1) AS minimum_heartRate,
+  ROUND(MAX(Value), 1) AS maximum_heartRate
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.heartrate_second`;
+
+--3) Tracking sleep
+SELECT
+  COUNT(DISTINCT Id) AS users_tracking_sleep,
+  ROUND(AVG(TotalMinutesAsleep) / 60, 1) AS average_hours_asleep,
+  ROUND(MIN(TotalMinutesAsleep) / 60, 1) AS minimum_hours_asleep,
+  ROUND(MAX(TotalMinutesAsleep) / 60, 1) AS maximum_hours_asleep,
+  ROUND(AVG(TotalTimeInBed) / 60, 1) AS average_hours_inBed
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.sleepDay`;
+
+--4) Seguimiento peso
+SELECT
+  COUNT(DISTINCT Id) AS users_tracking_weight,
+  ROUND(AVG(WeightKg), 1) AS average_weight,
+  ROUND(MIN(WeightKg), 1) AS minimum_weight,
+  ROUND(MAX(WeightKg), 1) AS maximum_weight
+FROM
+  `case-study-coursera-406619.FitBit_Tracker_Data.weightLogInfo`;
+
+ 
