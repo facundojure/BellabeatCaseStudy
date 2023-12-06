@@ -1,0 +1,26 @@
+--Cantidad total de calorias que gastaron en todo el tiempo que controlaron 
+
+SELECT
+  Id,
+  
+  SUM(Calories) AS calorias_gastadas
+FROM
+`case-study-coursera-406619.FitBit_Tracker_Data.hourly_activity`
+GROUP BY
+  Id;
+  ---- En esta consulta obtenemos la cantidad de dias que se controlo la actividad y agregando el total y promedio de pasos diarios sumado a la quema de calorias diarias
+
+  SELECT 
+  Id,
+  COUNT(DISTINCT ActivityDate) AS dias_activos,
+  SUM(StepTotal) AS total_pasos,
+  ROUND(SUM(StepTotal) / COUNT(DISTINCT ActivityDate)) AS promedio_pasos_diarios,
+  ROUND(SUM(Calories) / COUNT(DISTINCT ActivityDate)) AS promedio_calorias_diarios
+FROM 
+  `case-study-coursera-406619.FitBit_Tracker_Data.hourly_activity`
+GROUP BY 
+  Id
+ORDER BY 
+  Id;
+
+
